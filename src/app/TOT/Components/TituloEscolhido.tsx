@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 
@@ -135,7 +135,7 @@ type Props = {
 
 
 export default function TituloEscolhido({tipo}:Props){
-
+        const router= useRouter()
 
     const lista = titulos[tipo];
 
@@ -411,6 +411,11 @@ useState<Titulo | null>(null);
 
 
                     <button
+                    onClick={()=>{
+                        if(quantidade){
+                            router.push("/Results")
+                        }
+                    }}
 
                     disabled={!quantidade}
 
