@@ -355,13 +355,13 @@ useState<Titulo | null>(null);
                         mt-4
                         flex
                         flex-wrap
-                        justify-center
+                        justify-start
                         gap-3
                         ">
 
 
                         {
-                        [5,10,25,50].map((valor)=>(
+                        [5,10,25,30 ,50].map((valor)=>(
 
                         <button
 
@@ -370,8 +370,8 @@ useState<Titulo | null>(null);
                         onClick={()=>setQuantidade(valor.toString())}
 
                         className={`
-                        h-12
-                        w-12
+                        h-10
+                        w-10
                         rounded-full
                         border
                         font-semibold
