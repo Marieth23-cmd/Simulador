@@ -1,7 +1,14 @@
+"use client"
+
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import {useRouter} from "next/navigation"
 
 export default function Resultados() {
+
+    const router= useRouter()
+
+
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col">
 
@@ -56,7 +63,7 @@ export default function Resultados() {
             <div className="rounded-3xl border bg-[#2F5495] p-7 text-white">
 
               <p className="text-xs uppercase opacity-80">
-                Valor Final
+                Captal investido + todos os cupões .
               </p>
 
               <h2 className="mt-3 text-4xl font-bold">
@@ -147,38 +154,23 @@ export default function Resultados() {
 
           </div>
 
-          {/* Total */}
-
-          <div className="mt-10 rounded-3xl bg-[#2F5495] p-5 text-center text-white">
-
-            <p className="uppercase tracking-widest text-sm opacity-80">
-              Total a receber na maturidade
-            </p>
-
-            <h2 className="mt-4 text-5xl font-bold">
-              15 298 Kz
-            </h2>
-
-            <p className="mt-4 text-white/80">
-              Capital investido + todos os cupões recebidos.
-            </p>
-
-          </div>
-
+        
           {/* Botões */}
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
 
             <button
+              onClick={()=>{router.push("/TOT")}}
               className="rounded-full border border-[#2F5495] px-8 py-4 font-semibold text-[#2F5495]"
             >
               Simular novamente
             </button>
 
             <button
+             onClick={()=>{router.push("/EnviarRelatorio")}}
               className="rounded-full bg-[#2F5495] px-8 py-4 font-semibold text-white"
             >
-              Fazer Quiz
+              Receber relatório
             </button>
 
           </div>

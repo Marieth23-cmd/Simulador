@@ -323,7 +323,7 @@ useState<Titulo | null>(null);
                         <label className="
                         font-semibold
                         ">
-                            Quantidade de títulos
+                            Quantos títulos deseja comprar ?
                         </label>
 
 
