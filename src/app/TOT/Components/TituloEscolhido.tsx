@@ -328,7 +328,7 @@ useState<Titulo | null>(null);
 
 
 
-                        <input
+                       <input
 
                         type="number"
 
@@ -349,6 +349,59 @@ useState<Titulo | null>(null);
                         "
 
                         />
+
+
+                        <div className="
+                        mt-4
+                        flex
+                        flex-wrap
+                        justify-center
+                        gap-3
+                        ">
+
+
+                        {
+                        [5,10,25,50].map((valor)=>(
+
+                        <button
+
+                        key={valor}
+
+                        onClick={()=>setQuantidade(valor.toString())}
+
+                        className={`
+                        h-12
+                        w-12
+                        rounded-full
+                        border
+                        font-semibold
+                        transition
+
+                        ${
+                        quantidade === valor.toString()
+                        ?
+                        "bg-[#2F5495] text-white border-[#2F5495]"
+                        :
+                        "bg-white text-[#2F5495] border-[#2F5495]"
+                        }
+
+                        hover:scale-105
+
+                        `}
+
+                        >
+
+                        {valor}
+
+                        </button>
+
+
+                        ))
+
+                        }
+
+
+                    </div>
 
 
 
