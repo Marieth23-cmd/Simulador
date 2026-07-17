@@ -3,6 +3,18 @@
 import { useState } from "react";
 
 
+type Titulo = {
+    codigo: string;
+    isin: string;
+    nominal: number;
+    precoCompra: number;
+    maturidade: string;
+};
+
+
+
+
+
 const titulos = {
 
     OTNR: [
@@ -115,6 +127,8 @@ const titulos = {
 
 
 
+
+
 type Props = {
     tipo: "OTNR" | "OTME" | "OTX" | "Eurobonds";
 };
@@ -125,8 +139,8 @@ export default function TituloEscolhido({tipo}:Props){
 
     const lista = titulos[tipo];
 
-
-    const [tituloSelecionado,setTituloSelecionado] = useState<any>(null);
+const [tituloSelecionado, setTituloSelecionado] =
+useState<Titulo | null>(null);
 
 
     const [quantidade,setQuantidade] = useState("");
