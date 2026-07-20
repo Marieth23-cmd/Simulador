@@ -41,7 +41,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative h-[80vh] md:h-[95vh] overflow-hidden">
+    <section className="relative h-[80vh] md:h-[85vh] overflow-hidden">
       {/* Slider (crossfade) */}
       <div className="absolute inset-0">
         {imagens.map((img, i) => (
