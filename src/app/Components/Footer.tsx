@@ -1,16 +1,22 @@
-export default  function Footer() {
+export default function Footer() {
   return (
-    <footer className="bg-gray-600 text-white">
-  <div className="
-    mx-auto 
-    px-6 
-    py-3 
-    text-center 
-    text-sm
-    font-medium
-  ">
-    Lucrum Trust · FILDA 2026 · Simulação ilustrativa de investimento em Obrigações do Tesouro
-  </div>
-</footer>
+    <footer className="bg-[#24406f] text-white">
+      <div
+        className="
+          mx-auto
+          max-w-7xl
+          px-6
+          py-4
+          text-center
+          text-sm
+          font-medium
+          tracking-wide
+          text-white/90
+        "
+      >
+        Lucrum Trust · FILDA 2026 · Simulação ilustrativa de investimento em
+        Obrigações do Tesouro
+      </div>
+    </footer>
   );
 }

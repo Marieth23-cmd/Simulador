@@ -11,14 +11,14 @@ export default function Header() {
                <Link href="/">
                 <Image
                  alt=""
-                 src="https://res.cloudinary.com/dhpa1juyr/image/upload/v1784229370/empresalucrum_2_u8mplr.png"
+                 src="https://res.cloudinary.com/dhpa1juyr/image/upload/v1784572221/Prancheta_1_q4mzfg.png"
                  height={50}
-                 width={100}
+                 width={80}
                  className=""
                 />
             </Link>
 
-                <h1>Admin</h1>
+                <h1>FILDA 2026</h1>
 
                 </div>
             </div>

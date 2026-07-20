@@ -46,22 +46,24 @@ const titulos = {
 
     OTME: [
         {
-            codigo: "OM10M29A",
-            isin: "AOUGUSD29A1",
+            codigo: "EG31G26A",
+            isin: "AOUGDEGG23E1",
             nominal: 1000,
             precoCompra: 980,
-            maturidade: "2029"
+            maturidade: "2026",
+            cupao:"4,5%"
         },
         {
-            codigo: "OM15M31A",
-            isin: "AOUGUSD31A2",
+            codigo: "EO15J34A",
+            isin: "AOUGDEOJ23A7",
             nominal: 1000,
             precoCompra: 950,
-            maturidade: "2031"
+            maturidade: "2031",
+            cupao:"8,00%"
         }
         ,
         {
-            codigo: "OM15M32A",
+            codigo: "EO15J34A",
             isin: "AOUGUSD31A2",
             nominal: 1000,
             precoCompra: 965,
@@ -164,13 +166,7 @@ useState<Titulo | null>(null);
 
 
 
-            <div className="
-            mt-6
-            grid
-            grid-cols-1
-            md:grid-cols-2
-            gap-5
-            ">
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5">
 
 
             {lista.map((titulo)=>(
@@ -182,25 +178,11 @@ useState<Titulo | null>(null);
 
                 onClick={()=>setTituloSelecionado(titulo)}
 
-                className="
-                rounded-3xl
-                border
-                bg-white
-                p-6
-                text-left
-                hover:border-[#2F5495]
-                transition
-                duration-300
-                "
-
-                >
+                className="rounded-3xl border bg-white p-6 text-left hover:border-[#2F5495] transition duration-300
+                ">
 
 
-                    <h3 className="
-                    text-xl
-                    font-bold
-                    text-[#2F5495]
-                    ">
+                    <h3 className="text-xl font-bold text-[#2F5495] ">
                         {titulo.codigo}
                     </h3>
 
@@ -233,42 +215,17 @@ useState<Titulo | null>(null);
 
 
             <div
-            className="
-            animate-in
-            fade-in
-            duration-500
+            className="animate-in fade-in duration-500
             "
             >
 
-
-
-                <h2 className="
-                text-xl
-                font-bold
-                text-[#2F5495]
-                ">
+            <h2 className="text-xl font-bold text-[#2F5495] ">
                     Código selecionado
                 </h2>
 
+             <div className=" mt-5 rounded-3xl border bg-white p-6 " >
 
-
-
-                <div className="
-                mt-5
-                rounded-3xl
-                border
-                bg-white
-                p-6
-                "
-                >
-
-
-
-                    <h3 className="
-                    text-3xl
-                    font-bold
-                    text-[#2F5495]
-                    ">
+            <h3 className=" text-3xl font-bold text-[#2F5495] ">
                         {tituloSelecionado.codigo}
                     </h3>
 
@@ -338,26 +295,10 @@ useState<Titulo | null>(null);
 
                         onChange={(e)=>setQuantidade(e.target.value)}
 
-                        className="
-                        mt-3
-                        w-full
-                        rounded-xl
-                        border
-                        p-4
-                        text-center
-                        text-xl
-                        "
-
-                        />
+                        className="mt-3 w-full rounded-xl border p-4 text-center text-xl "/>
 
 
-                        <div className="
-                        mt-4
-                        flex
-                        flex-wrap
-                        justify-start
-                        gap-3
-                        ">
+                        <div className=" mt-4 flex flex-wrap justify-start gap-3">
 
 
                         {
@@ -369,13 +310,7 @@ useState<Titulo | null>(null);
 
                         onClick={()=>setQuantidade(valor.toString())}
 
-                        className={`
-                        h-10
-                        w-10
-                        rounded-full
-                        border
-                        font-semibold
-                        transition
+                        className={` h-10 w-10 rounded-full border font-semibold transition
 
                         ${
                         quantidade === valor.toString()
@@ -419,14 +354,7 @@ useState<Titulo | null>(null);
 
                     disabled={!quantidade}
 
-                    className={`
-                    mt-6
-                    w-full
-                    rounded-full
-                    py-4
-                    font-bold
-                    text-white
-
+                    className={`mt-6 w-full rounded-full py-4 font-bold text-white
                     ${
                     quantidade
                     ?

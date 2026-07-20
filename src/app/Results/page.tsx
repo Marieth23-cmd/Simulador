@@ -167,10 +167,10 @@ export default function Resultados() {
             </button>
 
             <button
-             onClick={()=>{router.push("/EnviarRelatorio")}}
+            
               className="rounded-full bg-[#2F5495] px-8 py-4 font-semibold text-white"
             >
-              Receber relatório
+              Falar com Consultor
             </button>
 
           </div>
