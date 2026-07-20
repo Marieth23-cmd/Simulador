@@ -1,18 +1,44 @@
 "use client"
-
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 import {useRouter} from "next/navigation"
+import { useEffect, useState } from "react";
+import { Confetti } from "../Components/Confetti";
 
 export default function Resultados() {
+
+
+
+const [showConfetti, setShowConfetti] = useState(false);
+
+
+useEffect(()=>{
+
+    const timer = setTimeout(()=>{
+
+        setShowConfetti(true);
+
+    },500);
+
+
+    return ()=>clearTimeout(timer);
+
+},[]);
+
+
+
 
     const router= useRouter()
 
 
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col">
-
+      
       <Header />
+
+
+      <Confetti show={showConfetti}/>
+
 
       <section className="flex-1 px-6 pt-32 pb-14">
 
