@@ -67,32 +67,32 @@ useEffect(()=>{
           <div className="mt-12 grid gap-6 md:grid-cols-3">
 
             <div className="rounded-3xl border bg-white p-7">
-              <p className="text-xs uppercase text-gray-500">
+              <p className="text-base uppercase text-gray-500">
                 Investimento
               </p>
 
-              <h2 className="mt-3 text-4xl font-bold text-[#2F5495]">
+              <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold text-[#2F5495]">
                 9 700 Kz
               </h2>
             </div>
 
             <div className="rounded-3xl border bg-white p-7">
-              <p className="text-xs uppercase text-gray-500">
+              <p className="text-base uppercase text-gray-500">
                 Cupão (6 em 6 meses)
               </p>
 
-              <h2 className="mt-3 text-4xl font-bold text-[#2F5495]">
+              <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold text-[#2F5495]">
                 883 Kz
               </h2>
             </div>
 
             <div className="rounded-3xl border bg-[#2F5495] p-7 text-white">
 
-              <p className="text-xs uppercase opacity-80">
+              <p className="text-base uppercase opacity-80">
                 Captal investido + todos os cupões .
               </p>
 
-              <h2 className="mt-3 text-4xl font-bold">
+              <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold">
                 15 298 Kz
               </h2>
 
@@ -108,7 +108,7 @@ useEffect(()=>{
 
             <div className="rounded-3xl border bg-white p-8">
 
-              <h2 className="text-2xl font-bold text-[#2F5495]">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#2F5495]">
                 Resumo
               </h2>
 
@@ -138,7 +138,7 @@ useEffect(()=>{
 
             <div className="rounded-3xl border bg-white p-7">
 
-              <h2 className="text-2xl font-bold text-[#2F5495]">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#2F5495]">
                 Calendário de Cupões
               </h2>
 

@@ -160,7 +160,7 @@ useState<Titulo | null>(null);
             <>
 
 
-            <h2 className="text-xl font-bold text-[#2F5495]">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#2F5495]">
                 Escolha o código de negociação
             </h2>
 
@@ -182,7 +182,7 @@ useState<Titulo | null>(null);
                 ">
 
 
-                    <h3 className="text-xl font-bold text-[#2F5495] ">
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-800 ">
                         {titulo.codigo}
                     </h3>
 
@@ -219,13 +219,13 @@ useState<Titulo | null>(null);
             "
             >
 
-            <h2 className="text-xl font-bold text-[#2F5495] ">
+            <h2 className="text-xl md:text-2xl font-bold text-[#2F5495] ">
                     Código selecionado
                 </h2>
 
              <div className=" mt-5 rounded-3xl border bg-white p-6 " >
 
-            <h3 className=" text-3xl font-bold text-[#2F5495] ">
+            <h3 className=" text-3xl font-bold text-gray-800 ">
                         {tituloSelecionado.codigo}
                     </h3>
 

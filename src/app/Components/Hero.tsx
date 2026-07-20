@@ -64,11 +64,11 @@ export default function Hero() {
 
       {/* Texto */}
       <div className="absolute inset-0 flex flex-col justify-center items-center px-6 text-center">
-        <h1 className="text-white text-2xl md:text-3xl lg:text-5xl font-bold max-w-5xl">
+        <h1 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold max-w-5xl">
           Simulador de Investimento em Obrigações do Tesouro
         </h1>
 
-        <p className="mt-5 max-w-3xl text-white text-base md:text-lg">
+        <p className="mt-5 max-w-3xl text-white text-base">
           As Obrigações do Tesouro são títulos emitidos pelo Estado Angolano.
           Ao investir, empresta ao Estado por um período definido e recebe
           cupões (juros) de 6 em 6 meses. No vencimento, o capital investido é
