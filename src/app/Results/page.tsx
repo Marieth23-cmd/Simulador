@@ -5,11 +5,48 @@ import {useRouter} from "next/navigation"
 import { useEffect, useState } from "react";
 import { Confetti } from "../Components/Confetti";
 
+type SimData = {
+  invested: number;
+  nominalTotal: number;
+  annualRate: number;
+  couponPerPeriodTotal: number;
+  periods: number;
+  totalCoupons: number;
+  finalValue: number;
+  schedule: { period: number; date: string; amount: number }[];
+}
+
+// Contador simples: anima de 0 até `value` quando `start` vira true
+function Count({ value, start, duration = 900 }: { value: number; start: boolean; duration?: number }) {
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!start) return;
+    let rafId = 0;
+    const startTime = performance.now();
+
+    const step = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const current = Math.floor(progress * value);
+      setDisplay(current);
+      if (progress < 1) rafId = requestAnimationFrame(step);
+    };
+
+    rafId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafId);
+  }, [start, value, duration]);
+
+  const formatted = display.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return <span aria-live="polite">{formatted}</span>;
+}
+
 export default function Resultados() {
 
 
 
 const [showConfetti, setShowConfetti] = useState(false);
+const [simData, setSimData] = useState<SimData | null>(null);
 
 
 useEffect(()=>{
@@ -24,6 +61,19 @@ useEffect(()=>{
     return ()=>clearTimeout(timer);
 
 },[]);
+
+useEffect(()=>{
+  // ler dados da simulação salvos em localStorage
+  try{
+    const raw = localStorage.getItem('simulacaoResult');
+    if(raw){
+      const parsed = JSON.parse(raw) as SimData;
+      setSimData(parsed);
+    }
+  }catch(e){
+    console.error('failed to read sim data', e);
+  }
+},[])
 
 
 
@@ -72,7 +122,7 @@ useEffect(()=>{
               </p>
 
               <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold text-[#2F5495]">
-                9 700 Kz
+                {simData ? <Count value={Math.round(simData.invested)} start={showConfetti} /> : <Count value={9700} start={showConfetti} />} Kz
               </h2>
             </div>
 
@@ -82,7 +132,7 @@ useEffect(()=>{
               </p>
 
               <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold text-[#2F5495]">
-                883 Kz
+                {simData ? <Count value={Math.round(simData.couponPerPeriodTotal)} start={showConfetti} /> : <Count value={883} start={showConfetti} />} Kz
               </h2>
             </div>
 
@@ -93,7 +143,7 @@ useEffect(()=>{
               </p>
 
               <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold">
-                15 298 Kz
+                {simData ? <Count value={Math.round(simData.finalValue)} start={showConfetti} /> : <Count value={15298} start={showConfetti} />} Kz
               </h2>
 
             </div>
@@ -143,31 +193,13 @@ useEffect(()=>{
               </h2>
 
               <div className="mt-6 space-y-3">
-
-                <Cupao
-                  data="15/03/2027"
-                  valor="883 Kz"
-                />
-
-                <Cupao
-                  data="15/09/2027"
-                  valor="883 Kz"
-                />
-
-                <Cupao
-                  data="15/03/2028"
-                  valor="883 Kz"
-                />
-
-                <Cupao
-                  data="15/09/2028"
-                  valor="883 Kz"
-                />
-
-                <Cupao
-                  data="15/03/2029"
-                  valor="883 Kz"
-                />
+                {simData && simData.schedule.length > 0 ? (
+                  simData.schedule.map((s) => (
+                    <Cupao key={s.period} data={s.date} valor={`${s.amount} Kz`} />
+                  ))
+                ) : (
+                  <p className="text-gray-500">Nenhum calendário disponível para esta simulação.</p>
+                )}
 
                 <Cupao
                   data="15/09/2029"
@@ -193,7 +225,7 @@ useEffect(()=>{
             </button>
 
             <button
-            
+            onClick={()=>{router.push("Obrigado")}}
               className="rounded-full bg-[#2F5495] px-8 py-4 font-semibold text-white"
             >
               Falar com Consultor
