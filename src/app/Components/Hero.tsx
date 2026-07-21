@@ -4,10 +4,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 const imagens = [
-  "https://res.cloudinary.com/dhpa1juyr/image/upload/v1784570418/young-african-american-businessman-reading-newspaper-talking-phone-his-office_xbzksx.jpg",
-  "https://res.cloudinary.com/dhpa1juyr/image/upload/v1784570414/c35aa69f-66a3-441c-9c4c-d633646bbf77_ynv3pl.png",
-  "https://res.cloudinary.com/dhpa1juyr/image/upload/v1784570414/image_ikyqea.png",
-  "https://res.cloudinary.com/dhpa1juyr/image/upload/v1784570411/photorealistic-money-with-plant_jcq9we.jpg",
+  "/images/image1.png",
+  "/images/image.png",
+  "/images/image3.jpg",
+  "/images/image2.jpg",
+ 
 ];
 
 const INTERVALO = 5000;
@@ -41,7 +42,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative h-[80vh] md:h-[85vh] overflow-hidden">
+    <section className="relative h-[75vh] md:h-[80vh] overflow-hidden">
       {/* Slider (crossfade) */}
       <div className="absolute inset-0">
         {imagens.map((img, i) => (
@@ -50,13 +51,15 @@ export default function Hero() {
             className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
             style={{ opacity: i === index ? 1 : 0 }}
           >
-            <Image
-              height={100}
-              width={100}
-              src={img}
-              className="h-full w-full object-cover"
-              alt={`Imagem ${i + 1} do slider`}
-            />
+            <div className="relative h-full w-full">
+              <Image
+                src={img}
+                alt={`Imagem ${i + 1} do slider`}
+                fill
+                quality={90}
+                className="object-cover"
+              />
+            </div>
             <div className="absolute inset-0 bg-black/55" />
           </div>
         ))}

@@ -3,7 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 export default function BotaoSimular() {
   return (
-    <section className="py-10 md:py-20 lg:py-24">
+    <section className="py-10  lg:py-10">
       <div className="max-w-7xl mx-auto flex justify-center px-4 py-4 md:py-10">
         <Link
           href="/TOT"
