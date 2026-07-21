@@ -13,6 +13,7 @@ type SimData = {
   nominal: number;
   nominalTotal: number;
   invested: number;
+  currency: string;
   cupaoString: string;
   annualRate: number;
   couponPerPeriodTotal: number;
@@ -93,6 +94,7 @@ useEffect(()=>{
   const nominalTotal = simData?.nominalTotal ?? nominal * quantidade;
   const maturidade = simData?.maturidade ?? `${new Date().getFullYear() + 1}`;
   const cupaoString = simData?.cupaoString ?? `${((simData?.annualRate ?? 0) * 100).toFixed(2)}%`;
+  const currency = simData?.currency ?? "Kz";
   const couponPerPeriodTotal = simData?.couponPerPeriodTotal ?? 0;
   const totalCoupons = simData?.totalCoupons ?? 0;
   const invested = simData?.invested ?? 0;
@@ -140,7 +142,7 @@ useEffect(()=>{
               </p>
 
               <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold text-[#2F5495]">
-                <Count value={Math.round(simData?.invested ?? 0)} start={showConfetti} /> Kz
+                <Count value={Math.round(invested)} start={showConfetti} /> {currency}
               </h2>
             </div>
 
@@ -150,7 +152,7 @@ useEffect(()=>{
               </p>
 
               <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold text-[#2F5495]">
-                <Count value={Math.round(simData?.couponPerPeriodTotal ?? 0)} start={showConfetti} /> Kz
+                <Count value={Math.round(couponPerPeriodTotal)} start={showConfetti} /> {currency}
               </h2>
             </div>
 
@@ -161,7 +163,7 @@ useEffect(()=>{
               </p>
 
               <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold">
-                <Count value={Math.round(simData?.finalValue ?? 0)} start={showConfetti} /> Kz
+                <Count value={Math.round(finalValue)} start={showConfetti} /> {currency}
               </h2>
 
             </div>
@@ -186,14 +188,14 @@ useEffect(()=>{
                     <Linha nome="Código" valor={simData.codigo} />
                     <Linha nome="ISIN" valor={simData.isin} />
                     <Linha nome="Quantidade" valor={`${quantidade} títulos`} />
-                    <Linha nome="Preço de compra" valor={`${precoCompra} Kz`} />
-                    <Linha nome="Valor nominal por título" valor={`${nominal} Kz`} />
-                    <Linha nome="Valor nominal total" valor={`${nominalTotal} Kz`} />
+                        <Linha nome="Preço de compra" valor={`${precoCompra} ${currency}`} />
+                    <Linha nome="Valor nominal por título" valor={`${nominal} ${currency}`} />
+                    <Linha nome="Valor nominal total" valor={`${nominalTotal} ${currency}`} />
                     <Linha nome="Taxa de juros" valor={`${((simData?.annualRate ?? 0) * 100).toFixed(2)}%`} />
                     <Linha nome="Cupão" valor={cupaoString} />
-                    <Linha nome="Cupão por período" valor={`${Math.round(couponPerPeriodTotal)} Kz`} />
+                    <Linha nome="Cupão por período" valor={`${Math.round(couponPerPeriodTotal)} ${currency}`} />
                     <Linha nome="Períodos (semestres)" valor={`${simData?.periods ?? 0}`} />
-                    <Linha nome="Total de cupões" valor={`${Math.round(totalCoupons)} Kz`} />
+                    <Linha nome="Total de cupões" valor={`${Math.round(totalCoupons)} ${currency}`} />
                     <Linha nome="Maturidade" valor={maturidade} />
                   </>
                 ) : (
@@ -212,9 +214,9 @@ useEffect(()=>{
               </h2>
 
               <div className="mt-6 space-y-3">
-                {simData && simData.schedule.length > 0 ? (
-                  simData.schedule.map((s) => (
-                    <Cupao key={s.period} data={s.date} valor={`${s.amount} Kz`} />
+                {schedule.length > 0 ? (
+                  schedule.map((s) => (
+                    <Cupao key={s.period} data={s.date} valor={`${s.amount} ${currency}`} />
                   ))
                 ) : (
                   <p className="text-gray-500">Nenhum calendário disponível para esta simulação.</p>

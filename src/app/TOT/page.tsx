@@ -6,7 +6,6 @@ import {
   FaDollarSign,
   FaChartLine,
   FaGlobeEurope,
-  FaArrowRight,
 } from "react-icons/fa";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";

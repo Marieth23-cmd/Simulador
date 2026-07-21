@@ -44,6 +44,8 @@ export default function TituloEscolhido({ tipo }: Props) {
   const [tituloSelecionado, setTituloSelecionado] = useState<Titulo | null>(null);
   const [quantidade, setQuantidade] = useState("");
 
+  const currency = tipo === "OTME" || tipo === "Eurobonds" ? "USD" : "Kz";
+
   // Helpers
   const parseRate = (s?: string, years = 1) => {
     if (!s) {
@@ -88,7 +90,7 @@ export default function TituloEscolhido({ tipo }: Props) {
               >
                 <h3 className="text-xl md:text-2xl font-bold text-[#2F5495]">{titulo.codigo}</h3>
                 <p className="mt-3 text-gray-600">Maturidade: {titulo.maturidade}</p>
-                <p className="text-gray-600">Preço: {titulo.precoCompra} Kz</p>
+                <p className="text-gray-600">Preço: {titulo.precoCompra} {currency}</p>
               </button>
             ))}
           </div>
@@ -105,10 +107,10 @@ export default function TituloEscolhido({ tipo }: Props) {
                 ISIN: <b className="ml-2">{tituloSelecionado.isin}</b>
               </p>
               <p>
-                Valor nominal: <b className="ml-2">{tituloSelecionado.nominal} Kz</b>
+                Valor nominal: <b className="ml-2">{tituloSelecionado.nominal} {currency}</b>
               </p>
               <p>
-                Preço compra: <b className="ml-2">{tituloSelecionado.precoCompra} Kz</b>
+                Preço compra: <b className="ml-2">{tituloSelecionado.precoCompra} {currency}</b>
               </p>
               <p>
                 Maturidade: <b className="ml-2">{tituloSelecionado.maturidade}</b>
@@ -151,6 +153,7 @@ export default function TituloEscolhido({ tipo }: Props) {
                   nominal: tituloSelecionado.nominal,
                   nominalTotal,
                   invested: precoTotal,
+                  currency,
                   cupaoString,
                   annualRate,
                   couponPerPeriodTotal,
