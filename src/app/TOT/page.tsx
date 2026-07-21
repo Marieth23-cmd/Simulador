@@ -53,7 +53,7 @@ export default function Tot() {
       <section className="flex-1 px-6 py-24 mt-28">
         {!tipoSelecionado ? (
           <div key="grelha" className="mx-auto max-w-6xl text-center animate-fadeUp">
-            <h1 className="text-3xl md:text-4xl font-bold text-[#2F5495]">
+            <h1 className="text-3xl md:text-4xl font-semibold text-gray-800">
               Escolha o tipo de obrigação
             </h1>
 
@@ -86,7 +86,7 @@ export default function Tot() {
                       transition-all
                       duration-300
                       hover:-translate-y-1
-                      hover:border-[#2F5495]
+                      hover:border-[#091a37]
                       hover:shadow-xl
                       hover:shadow-[#2F5495]/10
                       animate-fadeUp
@@ -106,10 +106,10 @@ export default function Tot() {
                     />
 
                     <div className="relative flex items-start justify-between">
-                      <div className="flex items-center gap-3">
+                      <div className="flex  items-center gap-3">
                         <span
                           className="
-                            flex h-11 w-11 shrink-0 items-center justify-center
+                            flex  h-11 w-11 shrink-0 items-center justify-center
                             rounded-full bg-[#2F5495]/10 text-[#2F5495]
                             transition-colors duration-300
                             group-hover:bg-[#2F5495] group-hover:text-white
@@ -120,24 +120,18 @@ export default function Tot() {
 
                         <span
                           className="
-                            inline-block rounded-full bg-[#2F5495]
-                            px-4 py-1 text-sm font-semibold text-white
+                            inline-block rounded-full text-[#D4AF37]
+                            px-4 py-1 text-sm font-semibold
                           "
                         >
                           {item.codigo}
                         </span>
                       </div>
 
-                      <FaArrowRight
-                        className="
-                          mt-3 text-gray-300
-                          transition-all duration-300
-                          group-hover:translate-x-1 group-hover:text-[#2F5495]
-                        "
-                      />
+                      
                     </div>
 
-                    <h2 className="relative mt-4 text-xl md:text-2xl font-bold text-gray-800">
+                    <h2 className="relative mt-4 text-xl md:text-2xl font-medium text-[#2F5495]">
                       {item.titulo}
                     </h2>
 
@@ -155,7 +149,7 @@ export default function Tot() {
               onClick={() => setTipoSelecionado(null)}
               className="
                 mb-6 rounded-full border px-5 py-2 text-sm
-                transition-colors hover:bg-gray-100
+                transition-colors hover:text-gray-100 border-[#2F5495] hover:bg-[#2F5498]
               "
             >
               ← Voltar

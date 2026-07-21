@@ -6,13 +6,20 @@ import { useEffect, useState } from "react";
 import { Confetti } from "../Components/Confetti";
 
 type SimData = {
-  invested: number;
+  codigo: string;
+  isin: string;
+  quantity: number;
+  precoCompra: number;
+  nominal: number;
   nominalTotal: number;
+  invested: number;
+  cupaoString: string;
   annualRate: number;
   couponPerPeriodTotal: number;
   periods: number;
   totalCoupons: number;
   finalValue: number;
+  maturidade: string;
   schedule: { period: number; date: string; amount: number }[];
 }
 
@@ -80,6 +87,17 @@ useEffect(()=>{
 
     const router= useRouter()
 
+  const quantidade = simData?.quantity ?? (simData?.nominal ? Math.round((simData.nominalTotal ?? 0) / (simData.nominal || 1)) : 0);
+  const precoCompra = simData?.precoCompra ?? (quantidade ? Math.round((simData?.invested ?? 0) / quantidade) : 0);
+  const nominal = simData?.nominal ?? (quantidade ? Math.round((simData?.nominalTotal ?? 0) / quantidade) : 0);
+  const nominalTotal = simData?.nominalTotal ?? nominal * quantidade;
+  const maturidade = simData?.maturidade ?? `${new Date().getFullYear() + 1}`;
+  const cupaoString = simData?.cupaoString ?? `${((simData?.annualRate ?? 0) * 100).toFixed(2)}%`;
+  const couponPerPeriodTotal = simData?.couponPerPeriodTotal ?? 0;
+  const totalCoupons = simData?.totalCoupons ?? 0;
+  const invested = simData?.invested ?? 0;
+  const finalValue = simData?.finalValue ?? invested + totalCoupons;
+  const schedule = simData?.schedule ?? [];
 
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col">
@@ -107,7 +125,7 @@ useEffect(()=>{
             </h1>
 
             <p className="mt-3 text-gray-600">
-              Simulação para o código <strong>OG13M29A</strong>
+              Simulação para o código <strong>{simData?.codigo ?? "sem dados"}</strong>
             </p>
 
           </div>
@@ -122,7 +140,7 @@ useEffect(()=>{
               </p>
 
               <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold text-[#2F5495]">
-                {simData ? <Count value={Math.round(simData.invested)} start={showConfetti} /> : <Count value={9700} start={showConfetti} />} Kz
+                <Count value={Math.round(simData?.invested ?? 0)} start={showConfetti} /> Kz
               </h2>
             </div>
 
@@ -132,18 +150,18 @@ useEffect(()=>{
               </p>
 
               <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold text-[#2F5495]">
-                {simData ? <Count value={Math.round(simData.couponPerPeriodTotal)} start={showConfetti} /> : <Count value={883} start={showConfetti} />} Kz
+                <Count value={Math.round(simData?.couponPerPeriodTotal ?? 0)} start={showConfetti} /> Kz
               </h2>
             </div>
 
             <div className="rounded-3xl border bg-[#2F5495] p-7 text-white">
 
               <p className="text-base uppercase opacity-80">
-                Captal investido + todos os cupões .
+                Captal investido + todos os cupões.
               </p>
 
               <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-bold">
-                {simData ? <Count value={Math.round(simData.finalValue)} start={showConfetti} /> : <Count value={15298} start={showConfetti} />} Kz
+                <Count value={Math.round(simData?.finalValue ?? 0)} start={showConfetti} /> Kz
               </h2>
 
             </div>
@@ -163,23 +181,24 @@ useEffect(()=>{
               </h2>
 
               <div className="mt-6 space-y-4">
-
-                <Linha nome="Código" valor="OG13M29A" />
-
-                <Linha nome="ISIN" valor="AOUGDOGM26A9" />
-
-                <Linha nome="Quantidade" valor="10 títulos" />
-
-                <Linha nome="Preço de compra" valor="970 Kz" />
-
-                <Linha nome="Valor nominal" valor="1000 Kz" />
-
-                <Linha nome="Taxa de juros" valor="18,21%" />
-
-                <Linha nome="Cupão" valor="Semestral" />
-
-                <Linha nome="Maturidade" valor="2029" />
-
+                {simData ? (
+                  <>
+                    <Linha nome="Código" valor={simData.codigo} />
+                    <Linha nome="ISIN" valor={simData.isin} />
+                    <Linha nome="Quantidade" valor={`${quantidade} títulos`} />
+                    <Linha nome="Preço de compra" valor={`${precoCompra} Kz`} />
+                    <Linha nome="Valor nominal por título" valor={`${nominal} Kz`} />
+                    <Linha nome="Valor nominal total" valor={`${nominalTotal} Kz`} />
+                    <Linha nome="Taxa de juros" valor={`${((simData?.annualRate ?? 0) * 100).toFixed(2)}%`} />
+                    <Linha nome="Cupão" valor={cupaoString} />
+                    <Linha nome="Cupão por período" valor={`${Math.round(couponPerPeriodTotal)} Kz`} />
+                    <Linha nome="Períodos (semestres)" valor={`${simData?.periods ?? 0}`} />
+                    <Linha nome="Total de cupões" valor={`${Math.round(totalCoupons)} Kz`} />
+                    <Linha nome="Maturidade" valor={maturidade} />
+                  </>
+                ) : (
+                  <p className="text-gray-500">Nenhum resumo disponível para esta simulação.</p>
+                )}
               </div>
 
             </div>
@@ -200,11 +219,6 @@ useEffect(()=>{
                 ) : (
                   <p className="text-gray-500">Nenhum calendário disponível para esta simulação.</p>
                 )}
-
-                <Cupao
-                  data="15/09/2029"
-                  valor="883 Kz"
-                />
 
               </div>
 

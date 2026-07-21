@@ -63,9 +63,11 @@ export default function TituloEscolhido({ tipo }: Props) {
   const nominalTotal = tituloSelecionado ? tituloSelecionado.nominal * quantidadeNum : 0;
   const precoTotal = tituloSelecionado ? tituloSelecionado.precoCompra * quantidadeNum : 0;
   const currentYear = new Date().getFullYear();
-  const anos = tituloSelecionado ? Math.max(parseInt(tituloSelecionado.maturidade, 10) - currentYear, 0) : 0;
-  const periods = Math.max(Math.ceil(anos * 2), 0);
+  const maturityYear = tituloSelecionado ? parseInt(tituloSelecionado.maturidade, 10) : currentYear + 1;
+  const anos = tituloSelecionado ? Math.max(maturityYear - currentYear, 1) : 0;
+  const periods = anos * 2;
   const annualRate = tituloSelecionado ? parseRate(tituloSelecionado.cupao, anos) : 0;
+  const cupaoString = tituloSelecionado?.cupao || `${(annualRate * 100).toFixed(2)}%`;
   const couponPerPeriodPerBond = tituloSelecionado ? (tituloSelecionado.nominal * annualRate) / 2 : 0;
   const couponPerPeriodTotal = couponPerPeriodPerBond * quantidadeNum;
   const totalCoupons = couponPerPeriodTotal * periods;
@@ -75,7 +77,7 @@ export default function TituloEscolhido({ tipo }: Props) {
     <div className="mt-10">
       {!tituloSelecionado ? (
         <>
-          <h2 className="text-2xl md:text-3xl font-bold text-[#2F5495]">Escolha o código de negociação</h2>
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800">Escolha o código de negociação</h2>
 
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5">
             {lista.map((titulo) => (
@@ -84,7 +86,7 @@ export default function TituloEscolhido({ tipo }: Props) {
                 onClick={() => setTituloSelecionado(titulo)}
                 className="rounded-3xl border bg-white p-6 text-left hover:border-[#2F5495] transition duration-300"
               >
-                <h3 className="text-xl md:text-2xl font-bold text-gray-800">{titulo.codigo}</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-[#2F5495]">{titulo.codigo}</h3>
                 <p className="mt-3 text-gray-600">Maturidade: {titulo.maturidade}</p>
                 <p className="text-gray-600">Preço: {titulo.precoCompra} Kz</p>
               </button>
@@ -93,10 +95,10 @@ export default function TituloEscolhido({ tipo }: Props) {
         </>
       ) : (
         <div className="animate-in fade-in duration-500">
-          <h2 className="text-xl md:text-2xl font-bold text-[#2F5495]">Código selecionado</h2>
+          <h2 className="text-xl md:text-2xl  font-bold text-gray-800">Código Selecionado</h2>
 
           <div className="mt-5 rounded-3xl border bg-white p-6">
-            <h3 className="text-3xl font-bold text-gray-800">{tituloSelecionado.codigo}</h3>
+            <h3 className="text-2xl font-bold text-[#2F5495]">{tituloSelecionado.codigo}</h3>
 
             <div className="mt-4 text-gray-700 space-y-2">
               <p>
@@ -138,20 +140,29 @@ export default function TituloEscolhido({ tipo }: Props) {
             </div>
 
             <button
-              onClick={() => {
+              onClick={async () => {
                 if (!quantidadeNum || !tituloSelecionado) return;
 
                 const resultData = {
-                  invested: precoTotal,
+                  codigo: tituloSelecionado.codigo,
+                  isin: tituloSelecionado.isin,
+                  quantity: quantidadeNum,
+                  precoCompra: tituloSelecionado.precoCompra,
+                  nominal: tituloSelecionado.nominal,
                   nominalTotal,
+                  invested: precoTotal,
+                  cupaoString,
                   annualRate,
                   couponPerPeriodTotal,
                   periods,
                   totalCoupons,
                   finalValue,
+                  maturidade: tituloSelecionado.maturidade,
                   schedule: Array.from({ length: periods }, (_, i) => {
                     const d = new Date();
-                    d.setMonth(d.getMonth() + 6 * (i + 1));
+                    d.setFullYear(currentYear + Math.ceil((i + 1) / 2));
+                    d.setMonth(8);
+                    d.setDate(15);
                     const day = String(d.getDate()).padStart(2, "0");
                     const month = String(d.getMonth() + 1).padStart(2, "0");
                     const year = d.getFullYear();
@@ -169,10 +180,22 @@ export default function TituloEscolhido({ tipo }: Props) {
                   console.error("localStorage error", e);
                 }
 
-                router.push("/Results");
+                // tentar navegar com router.push e usar fallback por segurança
+                try {
+                  console.debug('navegando para /Results via router.push');
+                  await router.push("/Results");
+                } catch (err) {
+                  console.error('router.push falhou:', err);
+                  try {
+                    console.debug('fallback: window.location.href = /Results');
+                    window.location.href = "/Results";
+                  } catch (err2) {
+                    console.error('fallback de navegação falhou:', err2);
+                  }
+                }
               }}
               disabled={!quantidade}
-              className={`mt-6 w-full rounded-full py-4 font-bold text-white ${quantidade ? "bg-[#2F5495]" : "bg-[#2F5495]/40"}`}
+              className={`mt-6 w-full rounded-full py-4 font-bold text-white ${quantidade ? "bg-[#2F5495] hover:bg-blue-700" : "bg-[#2F5495]/40"}`}
             >
               VER SIMULAÇÃO
             </button>
